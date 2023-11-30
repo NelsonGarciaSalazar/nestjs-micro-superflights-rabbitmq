@@ -1,0 +1,78 @@
+version: '2.3'
+
+services:
+  app:
+    image: nelsongarciasalazar/app_nestjs_flights
+    container_name: app_flights
+    env_file: .env
+    ports: 
+      - 80:3000
+    depends_on:
+      - mongodb
+      - rabbitmq
+    restart: always
+    networks:
+      - ms_nestjs
+
+  microservice-flights:
+    image: nelsongarciasalazar/microservice-flights
+    container_name: microservice-flights
+    env_file: .env
+    depends_on:
+      - mongodb
+      - rabbitmq
+    restart: always
+    networks:
+      - ms_nestjs
+
+  microservice-passengers:
+    image: nelsongarciasalazar/microservice-passengers
+    container_name: microservice-passengers
+    env_file: .env
+    depends_on:
+      - mongodb
+      - rabbitmq
+    restart: always
+    networks:
+      - ms_nestjs
+
+  microservice-users:
+    image: nelsongarciasalazar/microservice-users
+    container_name: microservice-users
+    env_file: .env
+    depends_on:
+      - mongodb
+      - rabbitmq
+    restart: always
+    networks:
+      - ms_nestjs
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rmq
+    expose:
+      - 5672
+      - 15672
+    restart: always
+    networks:
+      - ms_nestjs
+  
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - mongodb:/data/db
+    expose:
+      - 27017
+    networks:
+      - ms_nestjs
+
+volumes:
+  mongodb:
+
+networks:
+  ms_nestjs:

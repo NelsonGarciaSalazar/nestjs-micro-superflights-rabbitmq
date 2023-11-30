@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@nestjs/config": "^3.1.1",
+    "@nestjs/microservices": "^10.2.10",
+    "@nestjs/mongoose": "^10.0.2",
+    "amqp-connection-manager": "^4.1.14",
+    "amqplib": "^0.10.3",
+    "bcrypt": "^5.1.1",
+    "mongoose": "^8.0.1"
+  }
+}
